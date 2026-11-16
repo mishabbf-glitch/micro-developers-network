@@ -150,7 +150,6 @@
   .tool-output-head h4{font-family:var(--display);font-size:13px;letter-spacing:.16em;text-transform:uppercase}
   #reportOutput{flex:1;min-height:420px;font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:12.5px;line-height:1.55;margin-bottom:14px}
   .tool-status{font-size:13px;color:var(--steel-hi);margin-top:12px;min-height:20px}
-  .usage-note{color:var(--muted);font-size:14px;margin-top:10px}
 
   /* ---------- Contact ---------- */
   .contact-grid{display:grid;grid-template-columns:5fr 7fr;gap:72px}
@@ -169,6 +168,7 @@
   .hours td:last-child{text-align:right;color:var(--muted)}
   .hours tr:last-child td{border-bottom:0}
   .hours tr.today td{color:var(--text);font-weight:600}
+  .hours-note{color:var(--muted);font-size:14px;margin:-4px 0 10px}
 
   /* ---------- Footer ---------- */
   footer{border-top:1px solid var(--line);padding:72px 0 40px;background:#080b10}

@@ -23,9 +23,6 @@
     var d = new Date().getUTCDay();
     var row = document.querySelector('#hours tr[data-d="'+d+'"]'); if(row) row.classList.add('today');
     document.getElementById('yr').textContent = new Date().getUTCFullYear();
-    // Only show the usage line once there is a real count to show
-    var badge = document.getElementById('usageCount');
-    if(badge && (parseInt(badge.getAttribute('data-count')||'0',10) > 0)) document.getElementById('usageNote').hidden = false;
   })();
 
   /* ---------- Incident Report Drafter (logic carried over from the previous site) ---------- */
@@ -110,7 +107,7 @@ followup + '\n\n' +
   function copyReport(){
     var text = el('reportOutput').value;
     if(!text){ el('toolStatus').textContent = 'Generate a report first.'; return; }
-    var done = function(){ el('toolStatus').textContent = 'Copied to clipboard.'; trackUsage(); };
+    var done = function(){ el('toolStatus').textContent = 'Copied to clipboard.'; };
     var fail = function(){
       try{ el('reportOutput').select(); document.execCommand('copy'); done(); }
       catch(e){ el('toolStatus').textContent = 'Could not copy automatically — select the text and copy manually.'; }
@@ -134,7 +131,6 @@ followup + '\n\n' +
       a.href = url; a.download = filename; document.body.appendChild(a); a.click();
       setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 500);
       el('toolStatus').textContent = 'Saved as ' + filename + '.';
-      trackUsage();
     }catch(e){
       el('toolStatus').textContent = 'Could not save the file — use Copy Text instead.';
     }
@@ -160,18 +156,6 @@ followup + '\n\n' +
     }catch(e){
       el('toolStatus').textContent = 'Could not open print view — use Download instead.';
     }
-  }
-
-  // Session-only counter. A static GitHub Pages site can't store a shared count, so this
-  // increments for the current visitor only and never claims a site-wide figure.
-  function trackUsage(){
-    try{
-      var badge = document.getElementById('usageCount');
-      if(!badge) return;
-      var next = (parseInt(badge.getAttribute('data-count') || '0', 10) || 0) + 1;
-      badge.textContent = String(next);
-      badge.setAttribute('data-count', String(next));
-    }catch(e){}
   }
 
   /* ---------- Wire up buttons (replaces inline onclick handlers, required by the CSP) ---------- */
